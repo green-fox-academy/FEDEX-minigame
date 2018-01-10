@@ -9,6 +9,9 @@ pygame.init()
 BLACK = [0, 0, 0]
 WHITE = [255, 255, 255]
 SIZE = [700, 700]
+random_fruits = []
+x = random.randrange(0, 600)
+y = random.randrange(0, 600)
 
 
 screen = pygame.display.set_mode(SIZE)
@@ -19,9 +22,8 @@ background = pygame.transform.scale(background, SIZE)
 clock = pygame.time.Clock()
 fruits = [pygame.image.load(os.path.join("assets", 'orange.png')), pygame.image.load(os.path.join("assets", 'banana.png')), pygame.image.load(os.path.join("assets", 'melon.png')), pygame.image.load(os.path.join("assets", 'apple.png'))]
 one_fruit = random.choice(fruits)
-for i in range(100):
-    x = random.randrange(0, 700)
-    y = random.randrange(0, 700)
+
+
 # pygame.mouse.set_visible(False)
 # pygame.event.set_grab(True)
 done = False
@@ -32,8 +34,16 @@ while not done:
 
     screen.fill(WHITE)
     screen.blit(background, (0,0))
-    screen.blit(one_fruit, (20,20))
+    
+    for i in range(100):
+        screen.blit(one_fruit, (x, y))
+        y += 0.05
+        if y > 600:
+            y = random.randrange(-50, -10)
+            x = random.randrange(0, 600)
+    pygame.display.flip()
     pygame.display.update()
+    clock.tick(60)
 
 pygame.quit()
 quit()
