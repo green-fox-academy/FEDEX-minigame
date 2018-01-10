@@ -12,7 +12,7 @@ SIZE = [700, 700]
 random_fruits = []
 x = random.randrange(0, 600)
 y = random.randrange(0, 600)
-
+basket_x = 300
 
 screen = pygame.display.set_mode(SIZE)
 pygame.display.set_caption("Mini Game")
@@ -24,6 +24,7 @@ fruits = [pygame.image.load(os.path.join("assets", 'orange.png')), pygame.image.
 one_fruit = random.choice(fruits)
 basket_left = pygame.image.load(os.path.join("assets", "basket_left.png"))
 basket_right = pygame.image.load(os.path.join("assets", "basket_right.png"))
+basket = basket_left
 
 
 # pygame.mouse.set_visible(False)
@@ -42,7 +43,16 @@ while not done:
         if y > 600:
             y = random.randrange(-50, -10)
             x = random.randrange(0, 600)
-    screen.blit(basket_left, (300,500))
+    if event.type == pygame.KEYDOWN:
+        if event.key == pygame.K_LEFT and basket_x > -30:
+            basket_x -= 10
+            basket = basket_left
+        if event.key == pygame.K_RIGHT and basket_x < 600:
+            basket_x += 10
+            basket = basket_right
+    
+    screen.blit(basket, (basket_x,500))
+
     pygame.display.flip()
     pygame.display.update()
     clock.tick(60)
