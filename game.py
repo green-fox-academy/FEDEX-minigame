@@ -50,7 +50,6 @@ class Fruits():
         screen.blit(self.picture, (self.x, self.y))
 
     def is_it_in_the_basket(self, x, basket_size):
-        # fruits x should be between x and x+basket_size
         if basket_x <= self.x and self.x <= basket_x + basket_size:
             return True
 
@@ -69,29 +68,25 @@ while not done:
     text = "Score: " + str(score)
     screen.blit(font.render(text, True, (0, 0, 0)), (500, 0))
     actual_ticks = pygame.time.get_ticks()
-    seconds=(actual_ticks-start_ticks)/1000 #calculate how many seconds
+    seconds=(actual_ticks-start_ticks)/1000
     
     for i in range(life_count):
         screen.blit(life, (life_x + i * 32, 0))
     
-    if seconds > 5:
+    if seconds > 2:
         all_fruits.append(Fruits(random.choice(fruits)))
         speed += 0.5
         start_ticks = actual_ticks
-        
-    # for i in range(random_number):
+
     for fruit in all_fruits:
         fruit.display(screen)
         fruit.increment_y(speed)
-    # if fruit felt down - check is it in basket - remove it
         if fruit.y == 550:
             if fruit.is_it_in_the_basket(basket_x, basket_size):
-                #increment points
                 score += 1
-            else:
+            elif life_count > 0:
                 life_count -= 1
-            #remove fruit
-    all_fruits = [fruit for fruit in all_fruits if fruit.y < 550]
+        all_fruits = [fruit for fruit in all_fruits if fruit.y < 550]
     if event.type == pygame.KEYDOWN:
         if event.key == pygame.K_LEFT and basket_x > -30:
             basket_x -= 10
@@ -101,11 +96,11 @@ while not done:
             basket = basket_right
     
     screen.blit(basket, (basket_x,500))
-
     if life_count == 0:
         final_text = "GAME OVER"
         font = pygame.font.SysFont('Consolas', 30)        
         screen.blit(font.render(final_text, True, (0, 0, 0)), (300, 300))        
+
     
     pygame.display.flip()
     pygame.display.update()
