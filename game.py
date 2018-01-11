@@ -57,7 +57,6 @@ class Fruits():
 one_fruit = Fruits(random.choice(fruits))
 all_fruits = [one_fruit]
 start_ticks = pygame.time.get_ticks()
-text = "Score: " + str(score)
 font = pygame.font.SysFont('Consolas', 30)
 
 done = False
@@ -67,6 +66,7 @@ while not done:
             done = True  
     screen.fill(WHITE)
     screen.blit(background, (0,0))
+    text = "Score: " + str(score)
     screen.blit(font.render(text, True, (0, 0, 0)), (500, 0))
     actual_ticks = pygame.time.get_ticks()
     seconds=(actual_ticks-start_ticks)/1000 #calculate how many seconds
