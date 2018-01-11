@@ -72,23 +72,21 @@ while not done:
     for i in range(life_count):
         screen.blit(life, (life_x + i * 32, 0))
     
-    if seconds > 1:
+    if seconds > 10:
         all_fruits.append(Fruits(random.choice(fruits)))
-        speed += 1
+        speed += 0.5
         start_ticks = actual_ticks
-        
-    #randomly add new fruits to the list during the game
-    # for i in range(random_number):
+
     for fruit in all_fruits:
         fruit.display(screen)
         fruit.increment_y(speed)
     # if fruit felt down - check is it in basket - remove it
-        if fruit.y > 550:
+        if fruit.y >= 550:
             if fruit.is_it_in_the_basket(basket_x, basket_size):
                 #increment points
                 score += 1
             else:
-                life_count -1
+                life_count -= 1
             #remove fruit
 
     if event.type == pygame.KEYDOWN:
@@ -103,7 +101,7 @@ while not done:
 
     pygame.display.flip()
     pygame.display.update()
-    clock.tick(120)
+    clock.tick(60)
 
     
 pygame.quit()
